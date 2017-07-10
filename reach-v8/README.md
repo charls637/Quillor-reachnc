@@ -1,79 +1,68 @@
-# [Sage](https://roots.io/sage/)
-[![Build Status](https://travis-ci.org/roots/sage.svg)](https://travis-ci.org/roots/sage)
-[![devDependency Status](https://david-dm.org/roots/sage/dev-status.svg)](https://david-dm.org/roots/sage#info=devDependencies)
+# reach
+EducationNC Reach website 
 
-Sage is a WordPress starter theme based on HTML5 Boilerplate, gulp, Bower, and Bootstrap Sass, that will help you make better themes.
+SAGE STEPS (stable version 8) because the version 9 is still under development if we will use the v9 then we will follow the github steps then it uses yarn:
 
-* Source: [https://github.com/roots/sage](https://github.com/roots/sage)
-* Homepage: [https://roots.io/sage/](https://roots.io/sage/)
-* Documentation: [https://roots.io/sage/docs/](https://roots.io/sage/docs/)
-* Twitter: [@rootswp](https://twitter.com/rootswp)
-* Newsletter: [Subscribe](http://roots.io/subscribe/)
-* Forum: [https://discourse.roots.io/](https://discourse.roots.io/)
+## INSTALLATION
+Before starting make sure you have [Composer](https://getcomposer.org/download/) installed
 
-## Requirements
+### Open terminal and go/point it to your wordpress theme directory,  replace `your-theme-name` with the name of your theme, 8.5.1 is the latest stable version of sage	
 
-| Prerequisite    | How to check | How to install
-| --------------- | ------------ | ------------- |
-| PHP >= 5.4.x    | `php -v`     | [php.net](http://php.net/manual/en/install.php) |
-| Node.js 0.12.x  | `node -v`    | [nodejs.org](http://nodejs.org/) |
-| gulp >= 3.8.10  | `gulp -v`    | `npm install -g gulp` |
-| Bower >= 1.3.12 | `bower -v`   | `npm install -g bower` |
+```shell
+c> cd wamp/www/site/wp-content/themes/ 
+themes> composer create-project roots/sage your-theme-name 8.5.1
+```
 
-For more installation notes, refer to the [Install gulp and Bower](#install-gulp-and-bower) section in this document.
+### Installing project dependencies
+1. Install the latest Node.js
+2. After installing Node.js, we recommend that you update to the latest version of npm and other dependencies. Install the latest npm, gulp and bower
 
-## Features
+```shell
+c> npm install -g npm@latest
+c> npm install -g gulp bower
+your-theme-name> npm install 
+your-theme-name> bower install
+```
 
-* [gulp](http://gulpjs.com/) build script that compiles both Sass and Less, checks for JavaScript errors, optimizes images, and concatenates and minifies files
-* [BrowserSync](http://www.browsersync.io/) for keeping multiple browsers and devices synchronized while testing, along with injecting updated CSS and JS into your browser while you're developing
-* [Bower](http://bower.io/) for front-end package management
-* [asset-builder](https://github.com/austinpray/asset-builder) for the JSON file based asset pipeline
-* [Bootstrap](http://getbootstrap.com/)
-* [Theme wrapper](https://roots.io/sage/docs/theme-wrapper/)
-* ARIA roles and microformats
-* Posts use the [hNews](http://microformats.org/wiki/hnews) microformat
-* [Multilingual ready](https://roots.io/wpml/) and over 30 available [community translations](https://github.com/roots/sage-translations)
+the first two command is for global command.
 
-Install the [Soil](https://github.com/roots/soil) plugin to enable additional features:
+### To add a custom nav
+1. From your theme folder navigate to `lib/setup.php` and add your custom navigation below this line 
+`Register wp_nav_menu() menus`
+2. Then to display it add this file on `header/footer or any page with this code`. Where as the `name_navigation` is the name of your custom nav.
+`wp_nav_menu(['theme_location' => 'name_navigation', 'menu_class' => 'nav']);`
+3. then go to terminal/cli and from your theme path write this command:
+`your-theme-name> gulp`
+4. that command means to Compile and optimize the files in your assets directory.
 
-* Cleaner output of `wp_head` and enqueued assets
-* Cleaner HTML output of navigation menus
-* Root relative URLs
-* Nice search (`/search/query/`)
-* Google CDN jQuery snippet from [HTML5 Boilerplate](http://html5boilerplate.com/)
-* Google Analytics snippet from [HTML5 Boilerplate](http://html5boilerplate.com/)
+### To add a custom sidebar
+1. From your theme folder navigate to `lib/setup.php` and add your custom navigation below this line (Register sidebars).
+2. You can just duplicate and rename/duplicate the default sidebars.
+3. Then navigate to `themes/templates` add your new file to display the custom side bar i.e. my-sidebar.php OR You can directly inject the sidebar to any file i.e. footer.php/header.php.
+4. then just paste this code `<?php dynamic_sidebar('your-side-bar-id-name'); ?> `
+5. then go to terminal/cli and from your theme path write this command:`your-theme-name> gulp`
+6. that command means to Compile and optimize the files in your assets directory.
 
-See a complete working example in the [roots-example-project.com repo](https://github.com/roots/roots-example-project.com).
+### To add a custom post type. (I created this by myself so just copy and paste the default options/data)
+1. From your theme folder navigate to `functions.php` and add this value under the $sage_includes `lib/custom-post-types.php`
+means that all your custom post type code will be coded on that file.
+2. Navigate to `lib/custom-post-types.php` if you don't have that file then please create that file.
+3. In this file make sure you call first this code `namespace Roots\Sage\CPT;` for sage functions.
+4. then below that you can now register your new post types, taxonomies, rewrite rules and other functions.
+5. I did make a sample so you can just copy and paste it.
 
-## Theme installation
+### From here, you can customize your theme.. all of this steps can be found here https://roots.io/sage/docs/theme-installation/
 
-Clone the git repo - `git clone https://github.com/roots/sage.git` and then rename the directory to the name of your theme or website.
 
-## Theme setup
-
-Edit `lib/setup.php` to enable or disable theme features, setup navigation menus, post thumbnail sizes, post formats, and sidebars.
-
-## Theme development
-
-Sage uses [gulp](http://gulpjs.com/) as its build system and [Bower](http://bower.io/) to manage front-end packages.
-
-### Install gulp and Bower
-
-Building the theme requires [node.js](http://nodejs.org/download/). We recommend you update to the latest version of npm: `npm install -g npm@latest`.
-
-From the command line:
-
-1. Install [gulp](http://gulpjs.com) and [Bower](http://bower.io/) globally with `npm install -g gulp bower`
-2. Navigate to the theme directory, then run `npm install`
-3. Run `bower install`
-
-You now have all the necessary dependencies to run the build process.
+*hint:
+- everytime you add new code/css/style and want to view the result you must call the `gulp` command in the terminal to compile  your codes.
 
 ### Available gulp commands
 
 * `gulp` — Compile and optimize the files in your assets directory
 * `gulp watch` — Compile assets when file changes are made
 * `gulp --production` — Compile assets for production (no source maps).
+
 
 ### Using BrowserSync
 
@@ -82,33 +71,16 @@ To use BrowserSync during `gulp watch` you need to update `devUrl` at the bottom
 For example, if your local development URL is `http://project-name.dev` you would update the file to read:
 ```json
 ...
-  "config": {
-    "devUrl": "http://project-name.dev"
-  }
+"config": {
+"devUrl": "http://project-name.dev"
+}
 ...
 ```
 If your local development URL looks like `http://localhost:8888/project-name/` you would update the file to read:
 ```json
 ...
-  "config": {
-    "devUrl": "http://localhost:8888/project-name/"
-  }
+"config": {
+"devUrl": "http://localhost:8888/project-name/"
+}
 ...
 ```
-
-## Documentation
-
-Sage documentation is available at [https://roots.io/sage/docs/](https://roots.io/sage/docs/).
-
-## Contributing
-
-Contributions are welcome from everyone. We have [contributing guidelines](CONTRIBUTING.md) to help you get started.
-
-## Community
-
-Keep track of development and community news.
-
-* Participate on the [Roots Discourse](https://discourse.roots.io/)
-* Follow [@rootswp on Twitter](https://twitter.com/rootswp)
-* Read and subscribe to the [Roots Blog](https://roots.io/blog/)
-* Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
